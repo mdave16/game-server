@@ -14,5 +14,9 @@ def create_game():
     game_counter += 1
     return {'id': game_counter}
 
+@app.get('/tic-tac-toe/<id>')
+def get_game(id):
+    return {'id': int(id)}
+
 if __name__ == '__main__':
     app.run(host='localhost', port='8080', debug=True)
