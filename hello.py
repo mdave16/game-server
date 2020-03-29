@@ -23,5 +23,13 @@ def play_move(id):
     print(request.json)
     return {'id': id}
 
+@app.delete('/tic-tac-toe/<id:int>')
+def delete_game(id):
+    return
+
+def first_id(dictionary):
+    keys = dictionary.keys()
+    return min(set(range(len(keys) + 1)) - set(keys))
+
 if __name__ == '__main__':
     app.run(host='localhost', port='8080', debug=True)
