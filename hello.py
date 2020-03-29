@@ -14,14 +14,14 @@ def create_game():
     game_counter += 1
     return {'id': game_counter}
 
-@app.get('/tic-tac-toe/<id>')
+@app.get('/tic-tac-toe/<id:int>')
 def get_game(id):
-    return {'id': int(id)}
+    return {'id': id}
 
-@app.put('/tic-tac-toe/<id>')
+@app.put('/tic-tac-toe/<id:int>')
 def play_move(id):
     print(request.json)
-    return {'id': int(id)}
+    return {'id': id}
 
 if __name__ == '__main__':
     app.run(host='localhost', port='8080', debug=True)
