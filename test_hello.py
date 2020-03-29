@@ -24,3 +24,9 @@ def test_can_get_game_state():
     game_response = app.get('/tic-tac-toe/0')
     assert game_response.json == {'id': 0}
     assert game_response.status_code == 200
+
+def test_can_make_move_on_game():
+    app = TestApp(hello.app)
+    game_response = app.put('/tic-tac-toe/0', {'player': 'X', 'position': 'TOP_LEFT'})
+    assert game_response.json == {'id': 0}
+    assert game_response.status_code == 200

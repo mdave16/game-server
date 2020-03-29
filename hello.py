@@ -1,4 +1,4 @@
-from bottle import route, run, Bottle
+from bottle import route, run, Bottle, request
 
 app = Bottle()
 
@@ -16,6 +16,11 @@ def create_game():
 
 @app.get('/tic-tac-toe/<id>')
 def get_game(id):
+    return {'id': int(id)}
+
+@app.put('/tic-tac-toe/<id>')
+def play_move(id):
+    print(request.json)
     return {'id': int(id)}
 
 if __name__ == '__main__':
