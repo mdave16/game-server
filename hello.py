@@ -27,7 +27,7 @@ def play_move(id):
 def delete_game(id):
     return
 
-def first_id(dictionary):
+def first_unused_id(dictionary):
     keys = dictionary.keys()
     return min(set(range(len(keys) + 1)) - set(keys))
 

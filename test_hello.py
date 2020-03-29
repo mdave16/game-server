@@ -36,8 +36,8 @@ def test_can_delete_games():
     game_response = app.delete('/tic-tac-toe/0')
     assert game_response.status_code == 200
 
-def test_get_first_id_not_used():
-    assert hello.first_id({}) == 0
-    assert hello.first_id({0: ''}) == 1
-    assert hello.first_id({1: ''}) == 0
-    assert hello.first_id({0: '', 2: ''}) == 1
+def test_get_first_unused_id():
+    assert hello.first_unused_id({}) == 0
+    assert hello.first_unused_id({0: ''}) == 1
+    assert hello.first_unused_id({1: ''}) == 0
+    assert hello.first_unused_id({0: '', 2: ''}) == 1
