@@ -1,5 +1,6 @@
 import server
-from webtest import TestApp
+from webtest import TestApp, AppError
+from pytest import raises
 
 
 def test_says_hello():
@@ -35,6 +36,17 @@ def test_can_delete_games():
     app = TestApp(server.app)
     game_response = app.delete('/tic-tac-toe/0')
     assert game_response.status_code == 200
+
+def test_will_error_if_cannot_find_game_to_delete():
+    app =  TestApp(server.app)
+    game_response = app.delete('/tic-tac-toe/6', expect_errors=True)
+    assert game_response.status_code == 404
+
+def test_will_error_if_cannot_find_game():
+    app =  TestApp(server.app)
+    game_response = app.get('/tic-tac-toe/0', expect_errors=True)
+    assert game_response.status_code == 404
+
 
 def test_get_first_unused_id():
     assert server.first_unused_id({}) == 0
