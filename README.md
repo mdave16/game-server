@@ -15,7 +15,7 @@ Should you like to use a virtual environment, do so by
 
 Run the server with
 
-    python hello.py
+    python server.py
 
 ### Tests
 
