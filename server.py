@@ -1,10 +1,9 @@
-from bottle import route, run, Bottle, request, response
+from bottle import route, run, Bottle, request, response, HTTPError
 from enum import Enum, auto
 
 app = Bottle()
 
 games = {}
-
 
 
 class Player(Enum):
@@ -68,18 +67,15 @@ def create_game():
 
 @app.get('/tic-tac-toe/<id:int>')
 def get_game(id):
-    global games
-    if id not in games:
-        response.status = 404
-        return
+    if game_does_not_exist(id):
+        raise HTTPError(404)
     return {'id': id}
 
 @app.put('/tic-tac-toe/<id:int>')
 def play_move(id):
+    if game_does_not_exist(id):
+        raise HTTPError(404)
     global games
-    if id not in games:
-        response.status = 404
-        return
     game = games[id]
     game.play_move(Player[request.json['player']], TicTacToePosition[request.json['position']])
     if game.winner is None:
@@ -93,12 +89,15 @@ def play_move(id):
 
 @app.delete('/tic-tac-toe/<id:int>')
 def delete_game(id):
+    if game_does_not_exist(id):
+        raise HTTPError(404)
     global games
-    if id not in games:
-        response.status = 404
-    else:
-        del games[id]
+    del games[id]
     return
+
+def game_does_not_exist(id):
+    global games
+    return id not in games
 
 def first_unused_id(dictionary):
     keys = dictionary.keys()
