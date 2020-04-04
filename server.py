@@ -93,7 +93,6 @@ def delete_game(id):
         raise HTTPError(404)
     global games
     del games[id]
-    return
 
 def game_does_not_exist(id):
     global games
